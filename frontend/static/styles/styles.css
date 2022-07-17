@@ -104,3 +104,8 @@ tr td {
     font-weight: bold;
     color: #009879;
 }
+
+#home-image{
+    height:30%;
+    width:30%;
+}

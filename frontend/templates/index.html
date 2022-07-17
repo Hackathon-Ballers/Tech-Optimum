@@ -6,5 +6,16 @@
 
 {%block content %}
 
-<div class="content">The weight is {{weight}} lbs</div>
+<div class="content">
+    <div>
+    This currently measures a single trashcan in Massachusetts, located about 50 minutes from Boston. <br />
+    The trashcan does indeed have trash in it. <br />
+    No, we will not show images of the trashcan except for this one. <br /> <br/>
+    </div>
+    <img src="{{url_for('static', filename='trashcan.jpg')}}" id="home-image"/>
+    <div>
+        <br/>
+        The current weight in the IntelliWaste trashcan is {{weight}} lbs.
+    </div>
+</div>
 {%endblock%}
