@@ -1,0 +1,47 @@
+#header{
+    background-color:#dddddd;
+    padding:10vh 10vw;
+}
+#title{
+font-size: 50px;
+}
+
+#flex-container{
+display:flex;
+flex-direction: row;
+}
+
+#nav-bar{
+padding:5vw;
+flex:1;
+background-color:antiquewhite;
+height:100vh - 10vh;
+}
+
+.label{
+font-size:20px;
+margin:5%;
+}
+
+.content {
+flex:9;
+margin:2%;
+}
+.content-title{
+    font-size:30px;
+    text-align: center;
+    margin:2%;
+}
+
+#local-board {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+tr td{
+    padding: 5px;
+    border: 1px solid #dddddd;
+}

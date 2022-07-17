@@ -5,12 +5,34 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <title>HTML 5 Boilerplate</title>
-        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="static/styles/styles.css">
         <script src="https://combinatronics.com/Pixels128/Toolkit/main/refresh.js"></script>
         {% block head %}{%endblock%}
     </head>
     <body>
-        {% block content %}{%endblock%}
+        <div id="header">
+            <div id="title">
+                Ewaste
+            </div>
+            <div>
+                
+            </div>
+        </div>
+
+        <div id="flex-container">
+            <div id="nav-bar">
+                <div class="label">
+                    Community
+                </div>
+                <a class="community-links">
+                    Your Stats
+                </a>
+                <a class="community-links">
+                    Local Leaderboard
+                </a>
+            </div>
+            {% block content %}{%endblock%}
+        </div>
         <script>
             refresh("/refresh")
         </script>
