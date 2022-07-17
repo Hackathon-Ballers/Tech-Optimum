@@ -20,6 +20,8 @@ trashcans_height_cm = {
     '20 Gallon': 73.7
 }
 
+distance = 0
+
 def trashHeightToVolume(height):
     # 44 cm x 33 cm x height
     return 44 *  33 * height
@@ -32,17 +34,17 @@ prevWeights = [0]*100
 
 @app.route("/")
 def root():
-    if not session.get('trashcanHeight') or not session.get('trashcan-ip'): return redirect('/config')
+    global distance
+    # if not session.get('trashcanHeight') or not session.get('trashcan-ip'): return redirect('/config')
     if not session.get('username'): return redirect('/config')
-    try:
-        value = requests.get(session.get('trashcan-ip'), timeout=2).text
-    except:
-        return redirect('/config')
-    distance = json.loads(value)['distanceCm']
+    # try:
+        # value = requests.get(session.get('trashcan-ip'), timeout=2).text
+    # except:
+        # return redirect('/config')
     username = session['username']
     trashcanHeight = session.get('trashcanHeight', 1)
     trashVolume = trashHeightToVolume(max(60 - distance, 0))
-    weight = max(volumeToWeight(trashVolume), 0)
+    weight = round(max(volumeToWeight(trashVolume), 0), 2)
     con = sqlite3.connect('users.db')
     cur = con.cursor()
     print(username)
@@ -71,10 +73,10 @@ def config():
         con = sqlite3.connect('users.db')
         trashcanType = request.form.get('trashcanType')
         username = request.form.get('username')
-        ip = request.form.get('ip')
-        if (trashcanType not in trashcans_height_cm or not ip) or not username: return redirect('/config')
+        # ip = request.form.get('ip')
+        if (trashcanType not in trashcans_height_cm) or not username: return redirect('/config')
         session['trashcanHeight'] = trashcans_height_cm.get(trashcanType, 80)
-        session['trashcan-ip'] = ip
+        # session['trashcan-ip'] = ip
         session['username'] = username
         cur = con.cursor()
         cur.execute("INSERT OR REPLACE INTO Scores (username, weight) VALUES (?, ?)", (username, 0))
@@ -83,6 +85,11 @@ def config():
         return redirect("/")
     return render_template('config.html', trashcanTypes=trashcans_height_cm)
 
+@app.route('/sensor')
+def sensor():
+    global distance
+    distance = float(request.args.get('distance'))
+    return render_template('index.html')
 
 num = random.randint(0, 9999)
 @app.route('/refresh')
