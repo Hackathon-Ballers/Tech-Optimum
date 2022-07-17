@@ -7,9 +7,6 @@ app = Flask(__name__)
 def root():
     return render_template('index.html')
 
-@app.route('/leaderboard')
-def leaderboard():
-    return render_template('charts.html')
 
 num = random.randint(0, 9999)
 @app.route('/refresh')
