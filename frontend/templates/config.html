@@ -1,4 +1,10 @@
-<body>
+{%extends 'base.html' %}
+
+{%block head %}
+
+{%endblock%}
+
+{%block content %}
     <form action="/config" method='post'>
         <label for="TC_Type">Choose a trashcan:</label>
         <select name="trashcanType">
@@ -8,4 +14,5 @@
     </select>
     <input type="submit" value="Submit">
     </form>
-</body>
+{%endblock%}
+
