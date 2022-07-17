@@ -3,6 +3,7 @@ import requests
 import json
 import random
 from flask_session import Session
+import math
 
 app = Flask(__name__)
 app.config["SESSION_PERMANENT"] = False
@@ -18,20 +19,28 @@ trashcans_height_cm = {
     '20 Gallon': 73.7
 }
 
-def trashcanHeightToVolume(height):
+def trashHeightToVolume(height):
     # 44 cm x 33 cm x height
-    return 588.9498 * height
+    return 44 *  33 * height
 
 def volumeToWeight(cm3):
-    return cm3* (22/91.44)
+    return cm3* (22/84950.5)
 
 @app.route("/")
 def root():
-    if not session.get('trashcanHeight'): return redirect('/config')
-    value = requests.get("http://192.168.1.223").text
-    distance = json.loads(value)['distanceCm']
+    print("okie")
+    if not session.get('trashcanHeight') or not session.get('trashcan-ip'): return redirect('/config')
+    try:
+        value = requests.get(session.get('trashcan-ip'), timeout=1).text
+    except:
+        return redirect('/config')
     print(value)
-    return render_template('index.html', dist=distance)
+    distance = json.loads(value)['distanceCm']
+    trashcanHeight = session.get('trashcanHeight', 1)
+    trashVolume = trashHeightToVolume(max(trashcanHeight - distance, 0))
+    weight = volumeToWeight(trashVolume)
+    print(value)
+    return render_template('index.html', weight=weight)
 
 @app.route("/leaderboard")
 def leaderboard():
@@ -43,8 +52,10 @@ def leaderboard():
 def config():
     if request.method == "POST":
         trashcanType = request.form.get('trashcanType')
-        if trashcanType not in trashcans_height_cm: return redirect('/config')
+        ip = request.form.get('ip')
+        if trashcanType not in trashcans_height_cm or not ip: return redirect('/config')
         session['trashcanHeight'] = trashcans_height_cm.get(trashcanType, 80)
+        session['trashcan-ip'] = ip
         return redirect("/")
     return render_template('config.html', trashcanTypes=trashcans_height_cm)
 
