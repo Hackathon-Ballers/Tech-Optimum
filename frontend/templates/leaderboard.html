@@ -9,21 +9,13 @@
         LeaderBoard!!!
     </div>
 <table id="local-board">
-    <tr>
-      <td>1</td>
-      <td>Alex Gutierrez</td>
-      <td>101lbs</td>
-    </tr>
-    <tr>
-      <td>2</td>
-      <td>Jari Zaidi</td>
-      <td>102lbs</td>
-    </tr>
-    <tr>
-        <td>3</td>
-        <td>Joey Marcinowski</td>
-        <td>103lbs</td>
+    {% for username, weight in scores %}
+      <tr>
+        <td>{{loop.index}}</td>
+        <td>{{username}}</td>
+        <td>{{weight}}lbs</td>
       </tr>
+    {% endfor %}
   </table>
   <script src="/static/js/leaderboard-script.js"></script>
 {%endblock%}
