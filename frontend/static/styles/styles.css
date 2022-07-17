@@ -45,3 +45,13 @@ tr td{
     padding: 5px;
     border: 1px solid #dddddd;
 }
+body {
+    background-color: #121212;
+    color: white;
+    margin: 0;
+    padding: 0;
+}
+
+.light-bg {
+    background-color: rgba(255, 255, 255, 0.5);
+}
