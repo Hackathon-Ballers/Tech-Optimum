@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request, session, redirect
 import requests
 import json
 import random
@@ -27,6 +27,7 @@ def volumeToWeight(cm3):
 
 @app.route("/")
 def root():
+    if not session.get('trashcanHeight'): return redirect('/config')
     value = requests.get("http://192.168.1.223").text
     distance = json.loads(value)['distanceCm']
     print(value)
@@ -34,7 +35,19 @@ def root():
 
 @app.route("/leaderboard")
 def leaderboard():
+    if not session.get('trashcanHeight'): return redirect('/config')
     return render_template('leaderboard.html')
+
+
+@app.route("/config", methods=['GET','POST'])
+def config():
+    if request.method == "POST":
+        trashcanType = request.form.get('trashcanType')
+        if trashcanType not in trashcans_height_cm: return redirect('/config')
+        session['trashcanHeight'] = trashcans_height_cm.get(trashcanType, 80)
+        return redirect("/")
+    return render_template('config.html', trashcanTypes=trashcans_height_cm)
+
 
 num = random.randint(0, 9999)
 @app.route('/refresh')

@@ -1,13 +1,11 @@
-{%extends 'base.html' %}
-
-{%block head %}
-
-{%endblock%}
-
-{%block content %}
-<form action="/action_page.php">
-    <label for="fname">First name:</label><br>
-    <input type="text" id="fname" value="John"><br><br>
+<body>
+    <form action="/config" method='post'>
+        <label for="TC_Type">Choose a trashcan:</label>
+        <select name="trashcanType">
+            {% for trashcan in trashcanTypes %}
+                <option value="{{trashcan}}">{{trashcan}}</option>
+            {% endfor %}
+    </select>
     <input type="submit" value="Submit">
-  </form>
-{%endblock%}
+    </form>
+</body>
