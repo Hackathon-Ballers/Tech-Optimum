@@ -36,7 +36,6 @@ def root():
 def leaderboard():
     return render_template('leaderboard.html')
 
-
 num = random.randint(0, 9999)
 @app.route('/refresh')
 def refresh():

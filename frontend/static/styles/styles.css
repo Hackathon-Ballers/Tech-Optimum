@@ -1,5 +1,5 @@
 #header{
-    background-color:#dddddd;
+    background-color:#303030;
     padding:10vh 10vw;
 }
 #title{
@@ -12,15 +12,22 @@ flex-direction: row;
 }
 
 #nav-bar{
-padding:5vw;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+padding:10px;
 flex:1;
-background-color:antiquewhite;
-height:100vh - 10vh;
+background-color:rgb(78, 78, 78);
+height:70vh;
+text-align:center;
+justify-content: space-around;
 }
-
 .label{
 font-size:20px;
-margin:5%;
+}
+.community-links {
+    background-color: antiquewhite;
+    padding:10%;
 }
 
 .content {

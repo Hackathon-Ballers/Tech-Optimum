@@ -25,14 +25,19 @@
                 <div class="label">
                     Community
                 </div>
-                <a class="community-links">
+                <a href="/" class="community-links">
                     Your Stats
                 </a>
-                <a class="community-links">
+                <a href="/leaderboard" class="community-links">
                     Local Leaderboard
                 </a>
+                <a href="/config" class="community-links">
+                    Config
+                </a>
             </div>
-            {% block content %}{%endblock%}
+            <div class="content">
+                {% block content %}{%endblock%}
+            </div>
         </div>
         <script>
             refresh("/refresh")
